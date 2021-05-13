@@ -2,7 +2,8 @@ name: Firebase Deploy
 on:
   push:
     branches:
-      - master
+      - main
+      - ci_pipeline
 jobs:
   lint:
     name: Lint
