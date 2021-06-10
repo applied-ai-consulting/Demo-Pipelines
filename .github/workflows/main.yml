@@ -1,0 +1,43 @@
+name: serverless deploy
+on:
+  push:
+    branches:
+      - main
+jobs:
+  validate:
+    name: validate
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2.3.2
+      - name: install validater
+        run: npm install --global yaml-validator
+      - name: yaml validate
+        run: yaml-validator serverless.yml
+  deploy:
+    name: deploy
+    runs-on: windows-latest
+    needs: validate
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2.3.2
+      - name: Configuring aws cli
+        run: |
+          pip install awscli
+          aws configure --profile dev1 set aws_access_key_id {{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure --profile dev1 set aws_secret_access_key {{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure --profile dev1 set default_region_name us-west-2
+          aws configure --profile dev1 set default_output_format yaml
+          npm config set prefix /usr/local
+      - name: installing serverless and plugins
+        run: |
+          npm install -g serverless
+          serverless plugin install --name serverless-python-requirements --stage stage_name
+          serverless plugin install --name serverless-step-functions --stage stage_name
+          serverless plugin install --name serverless-pseudo-parameters --stage stage_name
+          serverless plugin install --name serverless-plugin-additional-stacks --stage stage_name
+          serverless plugin install --name serverless-plugin-split-stacks@1.9.3 --stage stage_name
+      - name: deploying serverless
+        run: |
+          serverless deploy --aws-profile dev1
+          echo "DEPLOYMENT COMPLETED"
