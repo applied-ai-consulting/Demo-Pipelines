@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - serverless_deployment_pipeline
 jobs:
   validate:
     name: validate
