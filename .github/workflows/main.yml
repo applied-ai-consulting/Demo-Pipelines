@@ -25,8 +25,8 @@ jobs:
       - name: Configuring aws cli
         run: |
           pip install awscli
-          aws configure --profile dev1 set aws_access_key_id {{ secrets.AWS_ACCESS_KEY_ID }}
-          aws configure --profile dev1 set aws_secret_access_key {{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure --profile dev1 set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure --profile dev1 set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws configure --profile dev1 set default_region_name us-west-2
           aws configure --profile dev1 set default_output_format yaml
           npm config set prefix /usr/local
