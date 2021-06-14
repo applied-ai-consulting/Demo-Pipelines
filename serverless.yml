@@ -5,15 +5,22 @@ provider:
   runtime: python3.6
   region: us-west-2
   stage: dev
+plugins:
+  - serverless-python-requirements
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
 
 
 functions:
-  hello:
-    handler: handler.hello
+  helloWorld:
+    handler: handler.hello_world
     events:
       - http:
-          path: echo/hello
+          path: helloworld
           method: get
+          cors: true
+
 resources:
   Resources:
     DemoBucketUpload:

@@ -1,1 +1,1 @@
-# Demo-Pipelines
+# demo-serverless-pipeline
