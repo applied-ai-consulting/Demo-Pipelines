@@ -31,7 +31,7 @@ jobs:
       - name: Run Linting
         run: yarn lint
   dependency-check:
-    name: dependency-vulnerability-check
+    name: Dependency-Vulnerability-Check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -40,7 +40,6 @@ jobs:
         run: |
           npm install
           npm install -g npm-audit-html
-          npm i --package-lock-only
           npm audit --json | npm-audit-html --output npm-audit.html
       - name: Archive Artifacts
         uses: actions/upload-artifact@v2
