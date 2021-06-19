@@ -39,7 +39,7 @@ jobs:
       - name: Install plugin
         run: |
           npm install
-          npm install -g npm-audit-html
+          sudo npm install -g npm-audit-html
           npm audit --json | npm-audit-html --output npm-audit.html
       - name: Archive Artifacts
         uses: actions/upload-artifact@v2
