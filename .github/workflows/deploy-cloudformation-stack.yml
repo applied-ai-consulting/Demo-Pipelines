@@ -20,7 +20,7 @@ jobs:
       - name: Checkout code from hello-pipeline branch
         uses: actions/checkout@v2
         with:
-          ref: hello-pipeline
+          ref: helloapp-pipeline
 
       # Configure AWS Credential
       - name: Configure AWS Credentials
